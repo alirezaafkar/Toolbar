@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Toolbar">
+        <attr name="titleTextAppearance" format="reference"/>
+        <attr name="subtitleTextAppearance" format="reference"/>
+        <attr name="title"/>
+        <attr name="subtitle"/>
+        <attr name="android:gravity"/>
+        <attr name="titleMargins" format="dimension"/>
+        <attr name="titleMarginStart" format="dimension"/>
+        <attr name="titleMarginEnd" format="dimension"/>
+        <attr name="titleMarginTop" format="dimension"/>
+        <attr name="titleMarginBottom" format="dimension"/>
+        <attr name="contentInsetStart"/>
+        <attr name="contentInsetEnd"/>
+        <attr name="contentInsetLeft"/>
+        <attr name="contentInsetRight"/>
+        <attr name="maxButtonHeight" format="dimension"/>
+
+        <attr name="collapseIcon" format="reference"/>
+        <!-- Text to set as the content description for the collapse button. -->
+        <attr name="collapseContentDescription" format="string"/>
+        <!-- Reference to a theme that should be used to inflate popups
+             shown by widgets in the toolbar. -->
+        <attr name="popupTheme"/>
+        <!-- Icon drawable to use for the navigation button located at
+             the start of the toolbar. -->
+        <attr name="navigationIcon" format="reference"/>
+        <!-- Text to set as the content description for the navigation button
+             located at the start of the toolbar. -->
+        <attr name="navigationContentDescription" format="string"/>
+
+        <!-- Allows us to read in the minHeight attr pre-v16 -->
+        <attr name="android:minHeight"/>
+
+        <!-- Drawable to set as the logo that appears at the starting side of
+             the Toolbar, just after the navigation button. -->
+        <attr name="logo"/>
+        <!-- A content description string to describe the appearance of the
+             associated logo image. -->
+        <attr name="logoDescription" format="string"/>
+        <!-- A color to apply to the title string. -->
+        <attr name="titleTextColor" format="color"/>
+        <!-- A color to apply to the subtitle string. -->
+        <attr name="subtitleTextColor" format="color"/>
+
+        <attr name="direction">
+            <enum name="locale" value="0"/>
+            <enum name="ltr" value="1"/>
+            <enum name="rtl" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
