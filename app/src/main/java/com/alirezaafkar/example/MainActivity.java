@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        toolbar.inflateMenu(R.menu.menu_main);
         toolbar.setOnMenuItemClickListener(this);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

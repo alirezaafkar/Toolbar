@@ -12,7 +12,7 @@ Android toolbar with layout direction support
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:toolbar:1.0.0'
+    compile 'com.alirezaafkar:toolbar:1.0.1'
 }
 ```
 
@@ -27,6 +27,8 @@ Use the Toolbar in layout file, you can add customized attributes here.
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:direction="rtl"
+                app:contextMenu="@menu/menu_main"
+                app:font="@string/font_path"
                 app:navigationIcon="@drawable/ic_menu"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name"/>

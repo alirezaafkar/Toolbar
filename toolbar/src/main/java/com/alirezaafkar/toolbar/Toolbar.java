@@ -1,6 +1,7 @@
 package com.alirezaafkar.toolbar;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -139,6 +140,8 @@ public class Toolbar extends ViewGroup {
     private CharSequence mTitleText;
     private CharSequence mSubtitleText;
 
+    private String mTitleFont;
+
     private int mTitleTextColor;
     private int mSubtitleTextColor;
 
@@ -198,6 +201,7 @@ public class Toolbar extends ViewGroup {
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
                 R.styleable.Toolbar, defStyleAttr, 0);
 
+        mTitleFont = a.getString(R.styleable.Toolbar_font);
         mTitleTextAppearance = a.getResourceId(R.styleable.Toolbar_titleTextAppearance, 0);
         mSubtitleTextAppearance = a.getResourceId(R.styleable.Toolbar_subtitleTextAppearance, 0);
         mGravity = a.getInteger(R.styleable.Toolbar_android_gravity, mGravity);
@@ -205,6 +209,9 @@ public class Toolbar extends ViewGroup {
         mDirection = a.getInteger(R.styleable.Toolbar_direction, 0);
         mTitleMarginStart = mTitleMarginEnd = mTitleMarginTop = mTitleMarginBottom =
                 a.getDimensionPixelOffset(R.styleable.Toolbar_titleMargins, 0);
+
+        int menu = a.getResourceId(R.styleable.Toolbar_contextMenu, 0);
+        if (menu != 0) inflateMenu(menu);
 
         final int marginStart = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginStart, -1);
         if (marginStart >= 0) {
@@ -606,6 +613,10 @@ public class Toolbar extends ViewGroup {
                 }
                 if (mTitleTextColor != 0) {
                     mTitleTextView.setTextColor(mTitleTextColor);
+                }
+                if (!TextUtils.isEmpty(mTitleFont) && !isInEditMode()) {
+                    Typeface typeface = Typeface.createFromAsset(context.getAssets(), mTitleFont);
+                    mTitleTextView.setTypeface(typeface);
                 }
             }
             if (!isChildOrHidden(mTitleTextView)) {
