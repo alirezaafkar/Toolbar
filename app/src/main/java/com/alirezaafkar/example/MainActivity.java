@@ -15,7 +15,8 @@ import com.alirezaafkar.toolbar.Toolbar;
 import com.alirezaafkar.toolbar.example.R;
 
 
-public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity
+        implements Toolbar.OnMenuItemClickListener {
     DrawerLayout mDrawerLayout;
 
     @Override
@@ -28,14 +29,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         toolbar.setOnMenuItemClickListener(this);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @SuppressLint("RtlHardcoded")
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         });
     }
 
+    @SuppressLint("RtlHardcoded")
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         int id = item.getItemId();
@@ -54,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             Toast.makeText(MainActivity.this,
                     R.string.action_settings,
                     Toast.LENGTH_SHORT).show();
+        } else if (id == android.R.id.home) {
+            mDrawerLayout.openDrawer(Gravity.RIGHT);
         }
         return false;
     }

@@ -1,6 +1,7 @@
 package com.alirezaafkar.toolbar;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.view.CollapsibleActionView;
 import android.support.v7.view.SupportMenuInflater;
+import android.support.v7.view.menu.ActionMenuItem;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.view.menu.MenuPresenter;
@@ -45,6 +47,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +98,7 @@ import java.util.List;
  * toolbars than on their application icon. The use of application icon plus title as a standard
  * layout is discouraged on API 21 devices and newer.</p>
  */
+@SuppressWarnings("ALL")
 public class Toolbar extends ViewGroup {
     private static final int LTR = 1;
     private static final int RTL = 2;
@@ -185,6 +190,7 @@ public class Toolbar extends ViewGroup {
     };
 
     private final TintManager mTintManager;
+    private OnClickListener mNavClickListener;
 
     public Toolbar(Context context) {
         this(context, null);
@@ -615,8 +621,10 @@ public class Toolbar extends ViewGroup {
                     mTitleTextView.setTextColor(mTitleTextColor);
                 }
                 if (!TextUtils.isEmpty(mTitleFont) && !isInEditMode()) {
-                    Typeface typeface = Typeface.createFromAsset(context.getAssets(), mTitleFont);
-                    mTitleTextView.setTypeface(typeface);
+                    if (isAssetExist(mTitleFont)) {
+                        Typeface typeface = Typeface.createFromAsset(context.getAssets(), mTitleFont);
+                        mTitleTextView.setTypeface(typeface);
+                    }
                 }
             }
             if (!isChildOrHidden(mTitleTextView)) {
@@ -837,6 +845,7 @@ public class Toolbar extends ViewGroup {
      */
     public void setNavigationOnClickListener(OnClickListener listener) {
         ensureNavButtonView();
+        mNavClickListener = listener;
         mNavButtonView.setOnClickListener(listener);
     }
 
@@ -1045,7 +1054,22 @@ public class Toolbar extends ViewGroup {
             final LayoutParams lp = generateDefaultLayoutParams();
             lp.gravity = GravityCompat.START | (mButtonGravity & Gravity.VERTICAL_GRAVITY_MASK);
             mNavButtonView.setLayoutParams(lp);
+            if (mNavClickListener == null)
+                setNavigationOnClickListener();
         }
+    }
+
+    private void setNavigationOnClickListener() {
+        mNavButtonView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnMenuItemClickListener != null) {
+                    ActionMenuItem menuItem = new ActionMenuItem(getContext(), 0,
+                            android.R.id.home, 0, 0, mTitleText);
+                    mOnMenuItemClickListener.onMenuItemClick(menuItem);
+                }
+            }
+        });
     }
 
     private void ensureCollapseButtonView() {
@@ -1846,6 +1870,27 @@ public class Toolbar extends ViewGroup {
             default:
                 return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
         }
+    }
+
+    private boolean isAssetExist(String asset) {
+        AssetManager assetManager = getResources().getAssets();
+        InputStream inputStream = null;
+        boolean exist = false;
+        try {
+            inputStream = assetManager.open(asset);
+            exist = true;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return exist;
     }
 
     /**
