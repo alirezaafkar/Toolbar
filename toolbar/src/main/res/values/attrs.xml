@@ -44,7 +44,7 @@
         <!-- A color to apply to the subtitle string. -->
         <attr name="subtitleTextColor" format="color"/>
 
-        <attr name="contextMenu" format="reference"/>
+        <attr name="optionsMenu" format="reference"/>
 
         <attr name="font" format="string"/>
 

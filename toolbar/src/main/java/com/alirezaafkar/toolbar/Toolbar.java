@@ -216,7 +216,7 @@ public class Toolbar extends ViewGroup {
         mTitleMarginStart = mTitleMarginEnd = mTitleMarginTop = mTitleMarginBottom =
                 a.getDimensionPixelOffset(R.styleable.Toolbar_titleMargins, 0);
 
-        int menu = a.getResourceId(R.styleable.Toolbar_contextMenu, 0);
+        int menu = a.getResourceId(R.styleable.Toolbar_optionsMenu, 0);
         if (menu != 0) inflateMenu(menu);
 
         final int marginStart = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginStart, -1);
