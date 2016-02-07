@@ -207,12 +207,17 @@ public class Toolbar extends ViewGroup {
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
                 R.styleable.Toolbar, defStyleAttr, 0);
 
+        mDirection = a.getInteger(R.styleable.Toolbar_direction, 0);
+
+        if (mDirection == RTL) {
+            mContentInsets.setDirection(true);
+        }
+
         mTitleFont = a.getString(R.styleable.Toolbar_font);
         mTitleTextAppearance = a.getResourceId(R.styleable.Toolbar_titleTextAppearance, 0);
         mSubtitleTextAppearance = a.getResourceId(R.styleable.Toolbar_subtitleTextAppearance, 0);
         mGravity = a.getInteger(R.styleable.Toolbar_android_gravity, mGravity);
         mButtonGravity = Gravity.TOP;
-        mDirection = a.getInteger(R.styleable.Toolbar_direction, 0);
         mTitleMarginStart = mTitleMarginEnd = mTitleMarginTop = mTitleMarginBottom =
                 a.getDimensionPixelOffset(R.styleable.Toolbar_titleMargins, 0);
 
@@ -1717,8 +1722,7 @@ public class Toolbar extends ViewGroup {
     private void addCustomViewsWithGravity(List<View> views, int gravity) {
         final boolean isRtl = isRtl();
         final int childCount = getChildCount();
-        final int absGrav = GravityCompat.getAbsoluteGravity(gravity,
-                ViewCompat.getLayoutDirection(this));
+        final int absGrav = GravityCompat.getAbsoluteGravity(gravity, getDirection());
 
         views.clear();
 
@@ -1744,7 +1748,7 @@ public class Toolbar extends ViewGroup {
     }
 
     private int getChildHorizontalGravity(int gravity) {
-        final int ld = ViewCompat.getLayoutDirection(this);
+        final int ld = getDirection();
         final int absGrav = GravityCompat.getAbsoluteGravity(gravity, ld);
         final int hGrav = absGrav & Gravity.HORIZONTAL_GRAVITY_MASK;
         switch (hGrav) {
@@ -1869,6 +1873,17 @@ public class Toolbar extends ViewGroup {
                 return false;
             default:
                 return ViewCompat.getLayoutDirection(this) == ViewCompat.LAYOUT_DIRECTION_RTL;
+        }
+    }
+
+    private int getDirection() {
+        switch (mDirection) {
+            case RTL:
+                return ViewCompat.LAYOUT_DIRECTION_RTL;
+            case LTR:
+                return ViewCompat.LAYOUT_DIRECTION_LTR;
+            default:
+                return ViewCompat.getLayoutDirection(this);
         }
     }
 
