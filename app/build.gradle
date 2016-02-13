@@ -8,8 +8,8 @@ android {
         applicationId "com.alirezaafkar.toolbar.example"
         minSdkVersion 7
         targetSdkVersion 23
-        versionCode 103
-        versionName "1.0.3"
+        versionCode 105
+        versionName "1.0.5"
     }
     buildTypes {
         release {

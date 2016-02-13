@@ -12,7 +12,7 @@ Android toolbar with layout direction support
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:toolbar:1.0.4'
+    compile 'com.alirezaafkar:toolbar:1.0.5'
 }
 ```
 

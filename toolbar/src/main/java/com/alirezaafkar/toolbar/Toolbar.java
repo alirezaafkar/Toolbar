@@ -100,8 +100,9 @@ import java.util.List;
  */
 @SuppressWarnings("ALL")
 public class Toolbar extends ViewGroup {
-    private static final int LTR = 1;
-    private static final int RTL = 2;
+    public static final int LOCALE = 0;
+    public static final int LTR = 1;
+    public static final int RTL = 2;
 
     private ActionMenuView mMenuView;
     private TextView mTitleTextView;
@@ -903,7 +904,7 @@ public class Toolbar extends ViewGroup {
 
     private void ensureMenuView() {
         if (mMenuView == null) {
-            mMenuView = new ActionMenuView(getContext());
+            mMenuView = new ActionMenuView(getContext(), mDirection);
             mMenuView.setPopupTheme(mPopupTheme);
             mMenuView.setOnMenuItemClickListener(mMenuViewItemClickListener);
             mMenuView.setMenuCallbacks(mActionMenuPresenterCallback, mMenuBuilderCallback);

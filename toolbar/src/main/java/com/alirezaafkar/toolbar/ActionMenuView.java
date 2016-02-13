@@ -57,11 +57,13 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
     private int mFormatItemsWidth;
     private int mMinCellSize;
     private int mGeneratedItemPadding;
+    private int mDirection;
 
     private OnMenuItemClickListener mOnMenuItemClickListener;
 
-    public ActionMenuView(Context context) {
+    public ActionMenuView(Context context, int direction) {
         this(context, null);
+        mDirection = direction;
     }
 
     public ActionMenuView(Context context, AttributeSet attrs) {
@@ -425,10 +427,10 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        if (!mFormatItems) {
+        /*if (!mFormatItems) {
             super.onLayout(changed, left, top, right, bottom);
             return;
-        }
+        }*/
 
         final int childCount = getChildCount();
         final int midVertical = (bottom - top) / 2;
@@ -438,7 +440,14 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
         int nonOverflowCount = 0;
         int widthRemaining = right - left - getPaddingRight() - getPaddingLeft();
         boolean hasOverflow = false;
-        final boolean isLayoutRtl = ViewUtils.isLayoutRtl(this);
+        boolean isLayoutRtl = ViewUtils.isLayoutRtl(this);
+
+        if (mDirection == Toolbar.RTL) {
+            isLayoutRtl = true;
+        } else if (mDirection == Toolbar.LTR) {
+            isLayoutRtl = false;
+        }
+
         for (int i = 0; i < childCount; i++) {
             final View v = getChildAt(i);
             if (v.getVisibility() == GONE) {
