@@ -1814,7 +1814,7 @@ public class Toolbar extends ViewGroup {
      */
     public DecorToolbar getWrapper() {
         if (mWrapper == null) {
-            mWrapper = new ToolbarWidgetWrapper(this, true);
+            mWrapper = new ToolbarWidgetWrapper(this, true, mDirection);
         }
         return mWrapper;
     }
@@ -2142,5 +2142,4 @@ public class Toolbar extends ViewGroup {
         public void onRestoreInstanceState(Parcelable state) {
         }
     }
-
 }

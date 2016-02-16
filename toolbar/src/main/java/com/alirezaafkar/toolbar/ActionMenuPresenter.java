@@ -15,7 +15,6 @@ import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.view.menu.BaseMenuPresenter;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
-import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.view.menu.SubMenuBuilder;
 import android.support.v7.widget.AppCompatImageView;
@@ -49,6 +48,7 @@ class ActionMenuPresenter extends BaseMenuPresenter
     private boolean mWidthLimitSet;
     private boolean mExpandedActionViewsExclusive;
 
+    private final int mDirection;
     private int mMinCellSize;
 
     // Group IDs that have been added as actions - used temporarily, allocated here for reuse.
@@ -65,8 +65,9 @@ class ActionMenuPresenter extends BaseMenuPresenter
     final PopupPresenterCallback mPopupPresenterCallback = new PopupPresenterCallback();
     int mOpenSubMenuId;
 
-    public ActionMenuPresenter(Context context) {
+    public ActionMenuPresenter(Context context, int direction) {
         super(context, R.layout.abc_action_menu_layout, R.layout.abc_action_menu_item_layout);
+        mDirection = direction;
     }
 
     @Override
@@ -680,8 +681,9 @@ class ActionMenuPresenter extends BaseMenuPresenter
 
         public OverflowPopup(Context context, MenuBuilder menu, View anchorView,
                              boolean overflowOnly) {
-            super(context, menu, anchorView, overflowOnly, R.attr.actionOverflowMenuStyle);
-            setGravity(GravityCompat.END);
+            super(context, menu, anchorView, overflowOnly,
+                    R.attr.actionOverflowMenuStyle, mDirection);
+            setGravity(GravityCompat.START);
             setCallback(mPopupPresenterCallback);
         }
 
@@ -700,7 +702,7 @@ class ActionMenuPresenter extends BaseMenuPresenter
 
         public ActionButtonSubmenu(Context context, SubMenuBuilder subMenu) {
             super(context, subMenu, null, false,
-                    R.attr.actionOverflowMenuStyle);
+                    R.attr.actionOverflowMenuStyle, mDirection);
             mSubMenu = subMenu;
 
             MenuItemImpl item = (MenuItemImpl) subMenu.getItem();

@@ -582,7 +582,7 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
     protected LayoutParams generateDefaultLayoutParams() {
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
+        params.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
         return params;
     }
 
@@ -598,7 +598,7 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
                     ? new LayoutParams((LayoutParams) p)
                     : new LayoutParams(p);
             if (result.gravity <= Gravity.NO_GRAVITY) {
-                result.gravity = Gravity.CENTER_VERTICAL;
+                result.gravity = Gravity.CENTER_VERTICAL | Gravity.RIGHT;
             }
             return result;
         }
@@ -653,7 +653,7 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
             final Context context = getContext();
             mMenu = new MenuBuilder(context);
             mMenu.setCallback(new MenuBuilderCallback());
-            mPresenter = new ActionMenuPresenter(context);
+            mPresenter = new ActionMenuPresenter(context, mDirection);
             mPresenter.setReserveOverflow(true);
             mPresenter.setCallback(mActionMenuPresenterCallback != null
                     ? mActionMenuPresenterCallback : new ActionMenuPresenterCallback());

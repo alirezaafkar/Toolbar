@@ -73,10 +73,12 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     private final TintManager mTintManager;
     private int mDefaultNavigationContentDescription = 0;
     private Drawable mDefaultNavigationIcon;
+    private int mDirection;
 
-    public ToolbarWidgetWrapper(Toolbar toolbar, boolean style) {
+    public ToolbarWidgetWrapper(Toolbar toolbar, boolean style, int direction) {
         this(toolbar, style, R.string.abc_action_bar_up_description,
                 R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        mDirection = direction;
     }
 
     public ToolbarWidgetWrapper(Toolbar toolbar, boolean style,
@@ -373,7 +375,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     @Override
     public void setMenu(Menu menu, MenuPresenter.Callback cb) {
         if (mActionMenuPresenter == null) {
-            mActionMenuPresenter = new ActionMenuPresenter(mToolbar.getContext());
+            mActionMenuPresenter = new ActionMenuPresenter(mToolbar.getContext(), mDirection);
             mActionMenuPresenter.setId(R.id.action_menu_presenter);
         }
         mActionMenuPresenter.setCallback(cb);
