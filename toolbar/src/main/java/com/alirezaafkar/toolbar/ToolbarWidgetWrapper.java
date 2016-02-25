@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
 package com.alirezaafkar.toolbar;
 
 import android.app.ActionBar;
@@ -11,10 +28,10 @@ import android.support.v7.app.WindowDecorActionBar;
 import android.support.v7.view.menu.ActionMenuItem;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPresenter;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.ScrollingTabContainerView;
-import android.support.v7.widget.TintManager;
 import android.support.v7.widget.TintTypedArray;
 import android.text.TextUtils;
 import android.util.Log;
@@ -70,14 +87,15 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     private int mNavigationMode = ActionBar.NAVIGATION_MODE_STANDARD;
 
-    private final TintManager mTintManager;
+    private final AppCompatDrawableManager mDrawableManager;
     private int mDefaultNavigationContentDescription = 0;
     private Drawable mDefaultNavigationIcon;
+
     private int mDirection;
 
     public ToolbarWidgetWrapper(Toolbar toolbar, boolean style, int direction) {
         this(toolbar, style, R.string.abc_action_bar_up_description,
-                R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+                R.drawable.abc_ic_ab_back_material);
         mDirection = direction;
     }
 
@@ -161,18 +179,16 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
             }
 
             a.recycle();
-            // Keep the TintManager in case we need it later
-            mTintManager = a.getTintManager();
         } else {
             mDisplayOpts = detectDisplayOptions();
-            // Create a TintManager in case we need it later
-            mTintManager = TintManager.get(toolbar.getContext());
         }
+
+        mDrawableManager = AppCompatDrawableManager.get();
 
         setDefaultNavigationContentDescription(defaultNavigationContentDescription);
         mHomeDescription = mToolbar.getNavigationContentDescription();
 
-        setDefaultNavigationIcon(mTintManager.getDrawable(defaultNavigationIcon));
+        setDefaultNavigationIcon(mDrawableManager.getDrawable(getContext(), defaultNavigationIcon));
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             final ActionMenuItem mNavItem = new ActionMenuItem(mToolbar.getContext(),
@@ -310,7 +326,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override
     public void setIcon(int resId) {
-        setIcon(resId != 0 ? mTintManager.getDrawable(resId) : null);
+        setIcon(resId != 0 ? mDrawableManager.getDrawable(getContext(), resId) : null);
     }
 
     @Override
@@ -321,7 +337,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     @Override
     public void setLogo(int resId) {
-        setLogo(resId != 0 ? mTintManager.getDrawable(resId) : null);
+        setLogo(resId != 0 ? mDrawableManager.getDrawable(getContext(), resId) : null);
     }
 
     @Override
@@ -611,8 +627,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     @Override
     public void setNavigationIcon(int resId) {
         setNavigationIcon(resId != 0
-                ? mTintManager.getDrawable(resId)
-                : null);
+                ? AppCompatDrawableManager.get().getDrawable(getContext(), resId) : null);
     }
 
     @Override

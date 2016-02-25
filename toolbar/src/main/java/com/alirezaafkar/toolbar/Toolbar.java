@@ -28,8 +28,8 @@ import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.view.menu.MenuPresenter;
 import android.support.v7.view.menu.MenuView;
 import android.support.v7.view.menu.SubMenuBuilder;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.DecorToolbar;
-import android.support.v7.widget.TintManager;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.ViewUtils;
 import android.text.Layout;
@@ -190,7 +190,7 @@ public class Toolbar extends ViewGroup {
         }
     };
 
-    private final TintManager mTintManager;
+    private final AppCompatDrawableManager mDrawableManager;
     private OnClickListener mNavClickListener;
 
     public Toolbar(Context context) {
@@ -223,7 +223,9 @@ public class Toolbar extends ViewGroup {
                 a.getDimensionPixelOffset(R.styleable.Toolbar_titleMargins, 0);
 
         int menu = a.getResourceId(R.styleable.Toolbar_optionsMenu, 0);
-        if (menu != 0) inflateMenu(menu);
+        if (menu != 0 && !isInEditMode()) {
+            inflateMenu(menu);
+        }
 
         final int marginStart = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginStart, -1);
         if (marginStart >= 0) {
@@ -310,8 +312,7 @@ public class Toolbar extends ViewGroup {
         }
         a.recycle();
 
-        // Keep the TintManager in case we need it later
-        mTintManager = a.getTintManager();
+        mDrawableManager = AppCompatDrawableManager.get();
     }
 
     /**
@@ -359,7 +360,7 @@ public class Toolbar extends ViewGroup {
      * @param resId ID of a drawable resource
      */
     public void setLogo(@DrawableRes int resId) {
-        setLogo(mTintManager.getDrawable(resId));
+        setLogo(mDrawableManager.getDrawable(getContext(), resId));
     }
 
     /**
@@ -800,7 +801,7 @@ public class Toolbar extends ViewGroup {
      * @param resId Resource ID of a drawable to set
      */
     public void setNavigationIcon(@DrawableRes int resId) {
-        setNavigationIcon(mTintManager.getDrawable(resId));
+        setNavigationIcon(mDrawableManager.getDrawable(getContext(), resId));
     }
 
     /**

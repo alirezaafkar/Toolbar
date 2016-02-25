@@ -3,6 +3,7 @@ package com.alirezaafkar.toolbar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Parcelable;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
@@ -23,6 +24,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -332,14 +334,14 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     public void onRestoreInstanceState(Parcelable state) {
     }
 
-    public int getTextGravity() {
+    public int getLayoutGravity() {
         switch (mDirection) {
             case Toolbar.RTL:
-                return Gravity.CENTER_VERTICAL | Gravity.RIGHT;
+                return Gravity.RIGHT;
             case Toolbar.LTR:
-                return Gravity.CENTER_VERTICAL | Gravity.LEFT;
+                return Gravity.LEFT;
             default:
-                return Gravity.CENTER_VERTICAL;
+                return GravityCompat.START;
         }
     }
 
@@ -380,8 +382,14 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
             if (convertView == null) {
                 convertView = mInflater.inflate(ITEM_LAYOUT, parent, false);
             }
-            ((TextView) convertView.findViewById(R.id.title))
-                    .setGravity(getTextGravity());
+
+            TextView title = (TextView) convertView.findViewById(R.id.title);
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
+            params.width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+            title.setLayoutParams(params);
+            RelativeLayout layout= (RelativeLayout) title.getParent();
+            layout.setHorizontalGravity(getLayoutGravity());
+
             MenuView.ItemView itemView = (MenuView.ItemView) convertView;
             if (mForceShowIcon) {
                 ((ListMenuItemView) convertView).setForceShowIcon(true);
