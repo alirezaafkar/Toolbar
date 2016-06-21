@@ -16,8 +16,10 @@ import android.support.v7.view.menu.BaseMenuPresenter;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.view.menu.MenuView;
+import android.support.v7.view.menu.ShowableListMenu;
 import android.support.v7.view.menu.SubMenuBuilder;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.ForwardingListener;
 import android.support.v7.widget.ListPopupWindow;
 import android.util.SparseBooleanArray;
 import android.view.MenuItem;
@@ -117,8 +119,7 @@ class ActionMenuPresenter extends BaseMenuPresenter
 
     public void onConfigurationChanged(Configuration newConfig) {
         if (!mMaxItemsSet) {
-            mMaxItems = mContext.getResources().getInteger(
-                    R.integer.abc_max_action_buttons);
+            mMaxItems = ActionBarPolicy.get(mContext).getMaxActionButtons();
         }
         if (mMenu != null) {
             mMenu.onItemsChanged(true);
@@ -602,9 +603,9 @@ class ActionMenuPresenter extends BaseMenuPresenter
             setVisibility(VISIBLE);
             setEnabled(true);
 
-            setOnTouchListener(new ListPopupWindow.ForwardingListener(this) {
+            setOnTouchListener(new ForwardingListener(this) {
                 @Override
-                public ListPopupWindow getPopup() {
+                public ShowableListMenu getPopup() {
                     if (mOverflowPopup == null) {
                         return null;
                     }

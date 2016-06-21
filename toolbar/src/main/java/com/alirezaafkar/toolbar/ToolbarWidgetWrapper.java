@@ -94,8 +94,8 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     private int mDirection;
 
     public ToolbarWidgetWrapper(Toolbar toolbar, boolean style, int direction) {
-        this(toolbar, style, R.string.abc_action_bar_up_description,
-                R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        this(toolbar, style, android.support.v7.appcompat.R.string.abc_action_bar_up_description,
+                android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         mDirection = direction;
     }
 

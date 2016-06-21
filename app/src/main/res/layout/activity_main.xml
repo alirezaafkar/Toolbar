@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:direction="rtl"
+                app:direction="locale"
                 app:font="@string/font_path"
                 app:navigationIcon="@drawable/ic_menu"
                 app:optionsMenu="@menu/menu_main"

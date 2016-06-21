@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 23
-        versionCode 108
-        versionName "1.0.8"
+        targetSdkVersion 24
+        versionCode 109
+        versionName "1.0.9"
     }
     buildTypes {
         release {
@@ -20,7 +20,7 @@ android {
 }
 
 publish {
-    publishVersion = '1.0.8'
+    publishVersion = '1.0.9'
 
     userOrg = 'alirezaafkar'
     groupId = 'com.alirezaafkar'
@@ -30,5 +30,6 @@ publish {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.0.0'
 }
