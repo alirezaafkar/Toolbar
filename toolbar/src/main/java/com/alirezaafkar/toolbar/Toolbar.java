@@ -1724,7 +1724,7 @@ public class Toolbar extends ViewGroup {
     private void addCustomViewsWithGravity(List<View> views, int gravity) {
         final boolean isRtl = isRtl();
         final int childCount = getChildCount();
-        final int absGrav = GravityCompat.getAbsoluteGravity(gravity, getDirection());
+        final int absGrav = GravityCompat.getAbsoluteGravity(gravity, getDirectionLayout());
 
         views.clear();
 
@@ -1750,7 +1750,7 @@ public class Toolbar extends ViewGroup {
     }
 
     private int getChildHorizontalGravity(int gravity) {
-        final int ld = getDirection();
+        final int ld = getDirectionLayout();
         final int absGrav = GravityCompat.getAbsoluteGravity(gravity, ld);
         final int hGrav = absGrav & Gravity.HORIZONTAL_GRAVITY_MASK;
         switch (hGrav) {
@@ -1878,7 +1878,7 @@ public class Toolbar extends ViewGroup {
         }
     }
 
-    private int getDirection() {
+    private int getDirectionLayout() {
         switch (mDirection) {
             case RTL:
                 return ViewCompat.LAYOUT_DIRECTION_RTL;
@@ -1886,6 +1886,21 @@ public class Toolbar extends ViewGroup {
                 return ViewCompat.LAYOUT_DIRECTION_LTR;
             default:
                 return ViewCompat.getLayoutDirection(this);
+        }
+    }
+
+    public int getDirection() {
+        return mDirection;
+    }
+
+    public int getGravity() {
+        switch (mDirection) {
+            case RTL:
+                return Gravity.RIGHT;
+            case LTR:
+                return Gravity.LEFT;
+            default:
+                return Gravity.START;
         }
     }
 

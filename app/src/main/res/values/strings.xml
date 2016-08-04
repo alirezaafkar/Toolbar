@@ -1,6 +1,9 @@
 <resources>
+    <string name="send">Send</string>
     <string name="app_name">Toolbar</string>
     <string name="action_email">Email</string>
     <string name="action_settings">Settings</string>
     <string name="font_path">fonts/vazir.ttf</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
 </resources>
