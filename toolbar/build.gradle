@@ -3,13 +3,22 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
+
+    lintOptions {
+        abortOnError false
+    }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 9
         targetSdkVersion 24
-        versionCode 110
-        versionName "1.1.0"
+        versionCode 111
+        versionName "1.1.1"
     }
     buildTypes {
         release {
@@ -20,7 +29,7 @@ android {
 }
 
 publish {
-    publishVersion = '1.1.0'
+    publishVersion = '1.1.1'
 
     userOrg = 'alirezaafkar'
     groupId = 'com.alirezaafkar'
@@ -30,5 +39,5 @@ publish {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
 }

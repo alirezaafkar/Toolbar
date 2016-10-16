@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Toolbar">
+    <declare-styleable name="RtlToolbar">
         <attr name="titleTextAppearance" format="reference"/>
         <attr name="subtitleTextAppearance" format="reference"/>
         <attr name="title"/>

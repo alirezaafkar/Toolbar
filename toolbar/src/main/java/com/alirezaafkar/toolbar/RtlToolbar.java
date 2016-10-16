@@ -60,7 +60,7 @@ import java.util.List;
  * {@link android.app.Activity Activity's} opaque window decor controlled by the framework,
  * a Toolbar may be placed at any arbitrary level of nesting within a view hierarchy.
  * An application may choose to designate a Toolbar as the action bar for an Activity
- * using the {@link android.support.v7.app.AppCompatActivity#setSupportActionBar(Toolbar)
+ * using the {@link android.support.v7.app.AppCompatActivity#setSupportActionBar(RtlToolbar)
  * setSupportActionBar()} method.</p>
  * <p/>
  * <p>Toolbar supports a more focused feature set than ActionBar. From start to end, a toolbar
@@ -99,7 +99,7 @@ import java.util.List;
  * layout is discouraged on API 21 devices and newer.</p>
  */
 @SuppressWarnings("ALL")
-public class Toolbar extends ViewGroup {
+public class RtlToolbar extends ViewGroup {
     public static final int LOCALE = 0;
     public static final int LTR = 1;
     public static final int RTL = 2;
@@ -193,73 +193,73 @@ public class Toolbar extends ViewGroup {
     private final AppCompatDrawableManager mDrawableManager;
     private OnClickListener mNavClickListener;
 
-    public Toolbar(Context context) {
+    public RtlToolbar(Context context) {
         this(context, null);
     }
 
-    public Toolbar(Context context, @Nullable AttributeSet attrs) {
+    public RtlToolbar(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, R.attr.toolbarStyle);
     }
 
-    public Toolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public RtlToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         // Need to use getContext() here so that we use the themed context
         final TintTypedArray a = TintTypedArray.obtainStyledAttributes(getContext(), attrs,
-                R.styleable.Toolbar, defStyleAttr, 0);
+                R.styleable.RtlToolbar, defStyleAttr, 0);
 
-        mDirection = a.getInteger(R.styleable.Toolbar_direction, 0);
+        mDirection = a.getInteger(R.styleable.RtlToolbar_direction, 0);
 
         if (mDirection == RTL) {
             mContentInsets.setDirection(true);
         }
 
-        mTitleFont = a.getString(R.styleable.Toolbar_font);
-        mTitleTextAppearance = a.getResourceId(R.styleable.Toolbar_titleTextAppearance, 0);
-        mSubtitleTextAppearance = a.getResourceId(R.styleable.Toolbar_subtitleTextAppearance, 0);
+        mTitleFont = a.getString(R.styleable.RtlToolbar_font);
+        mTitleTextAppearance = a.getResourceId(R.styleable.RtlToolbar_titleTextAppearance, 0);
+        mSubtitleTextAppearance = a.getResourceId(R.styleable.RtlToolbar_subtitleTextAppearance, 0);
         mGravity = a.getInteger(R.styleable.Toolbar_android_gravity, mGravity);
         mButtonGravity = Gravity.TOP;
         mTitleMarginStart = mTitleMarginEnd = mTitleMarginTop = mTitleMarginBottom =
-                a.getDimensionPixelOffset(R.styleable.Toolbar_titleMargins, 0);
+                a.getDimensionPixelOffset(R.styleable.RtlToolbar_titleMargins, 0);
 
-        int menu = a.getResourceId(R.styleable.Toolbar_optionsMenu, 0);
+        int menu = a.getResourceId(R.styleable.RtlToolbar_optionsMenu, 0);
         if (menu != 0 && !isInEditMode()) {
             inflateMenu(menu);
         }
 
-        final int marginStart = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginStart, -1);
+        final int marginStart = a.getDimensionPixelOffset(R.styleable.RtlToolbar_titleMarginStart, -1);
         if (marginStart >= 0) {
             mTitleMarginStart = marginStart;
         }
 
-        final int marginEnd = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginEnd, -1);
+        final int marginEnd = a.getDimensionPixelOffset(R.styleable.RtlToolbar_titleMarginEnd, -1);
         if (marginEnd >= 0) {
             mTitleMarginEnd = marginEnd;
         }
 
-        final int marginTop = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginTop, -1);
+        final int marginTop = a.getDimensionPixelOffset(R.styleable.RtlToolbar_titleMarginTop, -1);
         if (marginTop >= 0) {
             mTitleMarginTop = marginTop;
         }
 
-        final int marginBottom = a.getDimensionPixelOffset(R.styleable.Toolbar_titleMarginBottom,
+        final int marginBottom = a.getDimensionPixelOffset(R.styleable.RtlToolbar_titleMarginBottom,
                 -1);
         if (marginBottom >= 0) {
             mTitleMarginBottom = marginBottom;
         }
 
-        mMaxButtonHeight = a.getDimensionPixelSize(R.styleable.Toolbar_maxButtonHeight, -1);
+        mMaxButtonHeight = a.getDimensionPixelSize(R.styleable.RtlToolbar_maxButtonHeight, -1);
 
         final int contentInsetStart =
-                a.getDimensionPixelOffset(R.styleable.Toolbar_contentInsetStart,
+                a.getDimensionPixelOffset(R.styleable.RtlToolbar_contentInsetStart,
                         RtlSpacingHelper.UNDEFINED);
         final int contentInsetEnd =
-                a.getDimensionPixelOffset(R.styleable.Toolbar_contentInsetEnd,
+                a.getDimensionPixelOffset(R.styleable.RtlToolbar_contentInsetEnd,
                         RtlSpacingHelper.UNDEFINED);
         final int contentInsetLeft =
-                a.getDimensionPixelSize(R.styleable.Toolbar_contentInsetLeft, 0);
+                a.getDimensionPixelSize(R.styleable.RtlToolbar_contentInsetLeft, 0);
         final int contentInsetRight =
-                a.getDimensionPixelSize(R.styleable.Toolbar_contentInsetRight, 0);
+                a.getDimensionPixelSize(R.styleable.RtlToolbar_contentInsetRight, 0);
 
         mContentInsets.setAbsolute(contentInsetLeft, contentInsetRight);
 
@@ -268,47 +268,47 @@ public class Toolbar extends ViewGroup {
             mContentInsets.setRelative(contentInsetStart, contentInsetEnd);
         }
 
-        mCollapseIcon = a.getDrawable(R.styleable.Toolbar_collapseIcon);
-        mCollapseDescription = a.getText(R.styleable.Toolbar_collapseContentDescription);
+        mCollapseIcon = a.getDrawable(R.styleable.RtlToolbar_collapseIcon);
+        mCollapseDescription = a.getText(R.styleable.RtlToolbar_collapseContentDescription);
 
-        final CharSequence title = a.getText(R.styleable.Toolbar_title);
+        final CharSequence title = a.getText(R.styleable.RtlToolbar_title);
         if (!TextUtils.isEmpty(title)) {
             setTitle(title);
         }
 
-        final CharSequence subtitle = a.getText(R.styleable.Toolbar_subtitle);
+        final CharSequence subtitle = a.getText(R.styleable.RtlToolbar_subtitle);
         if (!TextUtils.isEmpty(subtitle)) {
             setSubtitle(subtitle);
         }
         // Set the default context, since setPopupTheme() may be a no-op.
         mPopupContext = getContext();
-        setPopupTheme(a.getResourceId(R.styleable.Toolbar_popupTheme, 0));
+        setPopupTheme(a.getResourceId(R.styleable.RtlToolbar_popupTheme, 0));
 
-        final Drawable navIcon = a.getDrawable(R.styleable.Toolbar_navigationIcon);
+        final Drawable navIcon = a.getDrawable(R.styleable.RtlToolbar_navigationIcon);
         if (navIcon != null) {
             setNavigationIcon(navIcon);
         }
-        final CharSequence navDesc = a.getText(R.styleable.Toolbar_navigationContentDescription);
+        final CharSequence navDesc = a.getText(R.styleable.RtlToolbar_navigationContentDescription);
         if (!TextUtils.isEmpty(navDesc)) {
             setNavigationContentDescription(navDesc);
         }
 
-        final Drawable logo = a.getDrawable(R.styleable.Toolbar_logo);
+        final Drawable logo = a.getDrawable(R.styleable.RtlToolbar_logo);
         if (logo != null) {
             setLogo(logo);
         }
 
-        final CharSequence logoDesc = a.getText(R.styleable.Toolbar_logoDescription);
+        final CharSequence logoDesc = a.getText(R.styleable.RtlToolbar_logoDescription);
         if (!TextUtils.isEmpty(logoDesc)) {
             setLogoDescription(logoDesc);
         }
 
-        if (a.hasValue(R.styleable.Toolbar_titleTextColor)) {
-            setTitleTextColor(a.getColor(R.styleable.Toolbar_titleTextColor, 0xffffffff));
+        if (a.hasValue(R.styleable.RtlToolbar_titleTextColor)) {
+            setTitleTextColor(a.getColor(R.styleable.RtlToolbar_titleTextColor, 0xffffffff));
         }
 
-        if (a.hasValue(R.styleable.Toolbar_subtitleTextColor)) {
-            setSubtitleTextColor(a.getColor(R.styleable.Toolbar_subtitleTextColor, 0xffffffff));
+        if (a.hasValue(R.styleable.RtlToolbar_subtitleTextColor)) {
+            setSubtitleTextColor(a.getColor(R.styleable.RtlToolbar_subtitleTextColor, 0xffffffff));
         }
         a.recycle();
 
@@ -1945,7 +1945,7 @@ public class Toolbar extends ViewGroup {
      * <p/>
      * <p>Toolbar.LayoutParams extends ActionBar.LayoutParams for compatibility with existing
      * ActionBar API. See
-     * {@link android.support.v7.app.AppCompatActivity#setSupportActionBar(Toolbar)
+     * {@link android.support.v7.app.AppCompatActivity#setSupportActionBar(RtlToolbar)
      * ActionBarActivity.setActionBar}
      * for more info on how to use a Toolbar as your Activity's ActionBar.</p>
      */
@@ -2100,12 +2100,12 @@ public class Toolbar extends ViewGroup {
         @Override
         public boolean expandItemActionView(MenuBuilder menu, MenuItemImpl item) {
             ensureCollapseButtonView();
-            if (mCollapseButtonView.getParent() != Toolbar.this) {
+            if (mCollapseButtonView.getParent() != RtlToolbar.this) {
                 addView(mCollapseButtonView);
             }
             mExpandedActionView = item.getActionView();
             mCurrentExpandedItem = item;
-            if (mExpandedActionView.getParent() != Toolbar.this) {
+            if (mExpandedActionView.getParent() != RtlToolbar.this) {
                 final LayoutParams lp = generateDefaultLayoutParams();
                 lp.gravity = GravityCompat.START | (mButtonGravity & Gravity.VERTICAL_GRAVITY_MASK);
                 lp.mViewType = LayoutParams.EXPANDED;

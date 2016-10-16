@@ -57,7 +57,7 @@ import android.widget.SpinnerAdapter;
  *
  * @hide
  */
-public class ToolbarWidgetWrapper implements DecorToolbar {
+class ToolbarWidgetWrapper implements DecorToolbar {
     private static final String TAG = "ToolbarWidgetWrapper";
 
     private static final int AFFECTS_LOGO_MASK =
@@ -65,7 +65,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     // Default fade duration for fading in/out tool bar.
     private static final long DEFAULT_FADE_DURATION_MS = 200;
 
-    private Toolbar mToolbar;
+    private RtlToolbar mToolbar;
 
     private int mDisplayOpts;
     private View mTabView;
@@ -93,13 +93,13 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
 
     private int mDirection;
 
-    public ToolbarWidgetWrapper(Toolbar toolbar, boolean style, int direction) {
+    public ToolbarWidgetWrapper(RtlToolbar toolbar, boolean style, int direction) {
         this(toolbar, style, android.support.v7.appcompat.R.string.abc_action_bar_up_description,
                 android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         mDirection = direction;
     }
 
-    public ToolbarWidgetWrapper(Toolbar toolbar, boolean style,
+    public ToolbarWidgetWrapper(RtlToolbar toolbar, boolean style,
                                 int defaultNavigationContentDescription, int defaultNavigationIcon) {
         mToolbar = toolbar;
         mTitle = toolbar.getTitle();
@@ -455,7 +455,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
         mTabView = tabView;
         if (tabView != null && mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
             mToolbar.addView(mTabView, 0);
-            Toolbar.LayoutParams lp = (Toolbar.LayoutParams) mTabView.getLayoutParams();
+            RtlToolbar.LayoutParams lp = (RtlToolbar.LayoutParams) mTabView.getLayoutParams();
             lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             lp.gravity = Gravity.START | Gravity.BOTTOM;
@@ -517,7 +517,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
                 case ActionBar.NAVIGATION_MODE_TABS:
                     if (mTabView != null) {
                         mToolbar.addView(mTabView, 0);
-                        Toolbar.LayoutParams lp = (Toolbar.LayoutParams) mTabView.getLayoutParams();
+                        RtlToolbar.LayoutParams lp = (RtlToolbar.LayoutParams) mTabView.getLayoutParams();
                         lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
                         lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                         lp.gravity = Gravity.START | Gravity.BOTTOM;
@@ -532,7 +532,7 @@ public class ToolbarWidgetWrapper implements DecorToolbar {
     private void ensureSpinner() {
         if (mSpinner == null) {
             mSpinner = new AppCompatSpinner(getContext(), null, R.attr.actionDropDownStyle);
-            Toolbar.LayoutParams lp = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            RtlToolbar.LayoutParams lp = new RtlToolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.START | Gravity.CENTER_VERTICAL);
             mSpinner.setLayoutParams(lp);
         }

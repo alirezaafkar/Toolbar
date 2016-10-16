@@ -34,7 +34,7 @@ import java.util.ArrayList;
  *
  * @hide
  */
-public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.OnKeyListener,
+class MenuPopupHelper implements AdapterView.OnItemClickListener, View.OnKeyListener,
         ViewTreeObserver.OnGlobalLayoutListener, PopupWindow.OnDismissListener,
         MenuPresenter {
 
@@ -50,7 +50,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     private final int mPopupMaxWidth;
     private final int mPopupStyleAttr;
     private final int mPopupStyleRes;
-    private int mDirection = Toolbar.LOCALE;
+    private int mDirection = RtlToolbar.LOCALE;
 
     private View mAnchorView;
     private ListPopupWindow mPopup;
@@ -74,11 +74,11 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     private int mDropDownGravity = Gravity.NO_GRAVITY;
 
     public MenuPopupHelper(Context context, MenuBuilder menu) {
-        this(context, menu, null, false, R.attr.popupMenuStyle, Toolbar.LOCALE);
+        this(context, menu, null, false, R.attr.popupMenuStyle, RtlToolbar.LOCALE);
     }
 
     public MenuPopupHelper(Context context, MenuBuilder menu, View anchorView) {
-        this(context, menu, anchorView, false, R.attr.popupMenuStyle, Toolbar.LOCALE);
+        this(context, menu, anchorView, false, R.attr.popupMenuStyle, RtlToolbar.LOCALE);
     }
 
     public MenuPopupHelper(Context context, MenuBuilder menu, View anchorView,
@@ -336,9 +336,9 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
 
     public int getLayoutGravity() {
         switch (mDirection) {
-            case Toolbar.RTL:
+            case RtlToolbar.RTL:
                 return Gravity.RIGHT;
-            case Toolbar.LTR:
+            case RtlToolbar.LTR:
                 return Gravity.LEFT;
             default:
                 return GravityCompat.START;

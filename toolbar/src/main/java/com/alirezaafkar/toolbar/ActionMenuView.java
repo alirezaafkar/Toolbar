@@ -29,7 +29,7 @@ import android.view.accessibility.AccessibilityEvent;
  * items in an overflow menu. This allows applications to present packs of actions inline with
  * specific or repeating content.
  */
-public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.ItemInvoker,
+class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.ItemInvoker,
         MenuView {
 
     private static final String TAG = "ActionMenuView";
@@ -442,9 +442,9 @@ public class ActionMenuView extends LinearLayoutCompat implements MenuBuilder.It
         boolean hasOverflow = false;
         boolean isLayoutRtl = ViewUtils.isLayoutRtl(this);
 
-        if (mDirection == Toolbar.RTL) {
+        if (mDirection == RtlToolbar.RTL) {
             isLayoutRtl = true;
-        } else if (mDirection == Toolbar.LTR) {
+        } else if (mDirection == RtlToolbar.LTR) {
             isLayoutRtl = false;
         }
 

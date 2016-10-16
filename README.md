@@ -12,16 +12,16 @@ Android toolbar with layout direction support
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:toolbar:1.1.0'
+    compile 'com.alirezaafkar:toolbar:1.1.1'
 }
 ```
 
 ### Usage
 
-Use the Toolbar in layout file, you can add customized attributes here.
+###XML
 
 ```xml
-<com.alirezaafkar.toolbar.Toolbar
+<com.alirezaafkar.toolbar.RtlToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -32,6 +32,18 @@ Use the Toolbar in layout file, you can add customized attributes here.
                 app:navigationIcon="@drawable/ic_menu"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name"/>
+```
+
+###JAVA
+```java
+RtlToolbar toolbar = (RtlToolbar) findViewById(R.id.toolbar);
+DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+RtlActionBarDrawerToggle drawerToggle = new RtlActionBarDrawerToggle(this, drawerLayout,
+                toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+drawerLayout.addDrawerListener(drawerToggle);
+drawerToggle.syncState();
+
 ```
 
 #Licence

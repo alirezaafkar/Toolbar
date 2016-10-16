@@ -13,25 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alirezaafkar.toolbar.ActionBarDrawerToggle;
-import com.alirezaafkar.toolbar.Toolbar;
+import com.alirezaafkar.toolbar.RtlActionBarDrawerToggle;
+import com.alirezaafkar.toolbar.RtlToolbar;
 import com.alirezaafkar.toolbar.example.R;
 
-public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements RtlToolbar.OnMenuItemClickListener {
     private static final String EMAIL = "pesiran@gmail.com";
 
-    private Toolbar mToolbar;
+    private RtlToolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private CoordinatorLayout mCoordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (RtlToolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_Layout);
 
         mToolbar.setOnMenuItemClickListener(this);
 
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     private void initDrawer() {
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+        RtlActionBarDrawerToggle drawerToggle = new RtlActionBarDrawerToggle(this, mDrawerLayout,
                 mToolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(drawerToggle);
