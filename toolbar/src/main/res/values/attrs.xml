@@ -46,7 +46,7 @@
 
         <attr name="optionsMenu" format="reference"/>
 
-        <attr name="font" format="string"/>
+        <attr name="font_path" format="string"/>
 
         <attr name="direction">
             <enum name="locale" value="0"/>

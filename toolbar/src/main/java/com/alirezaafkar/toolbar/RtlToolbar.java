@@ -31,6 +31,7 @@ import android.support.v7.view.menu.SubMenuBuilder;
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.DecorToolbar;
 import android.support.v7.widget.TintTypedArray;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.ViewUtils;
 import android.text.Layout;
 import android.text.TextUtils;
@@ -214,7 +215,7 @@ public class RtlToolbar extends ViewGroup {
             mContentInsets.setDirection(true);
         }
 
-        mTitleFont = a.getString(R.styleable.RtlToolbar_font);
+        mTitleFont = a.getString(R.styleable.RtlToolbar_font_path);
         mTitleTextAppearance = a.getResourceId(R.styleable.RtlToolbar_titleTextAppearance, 0);
         mSubtitleTextAppearance = a.getResourceId(R.styleable.RtlToolbar_subtitleTextAppearance, 0);
         mGravity = a.getInteger(R.styleable.Toolbar_android_gravity, mGravity);
@@ -1299,7 +1300,7 @@ public class RtlToolbar extends ViewGroup {
             navWidth = mNavButtonView.getMeasuredWidth() + getHorizontalMargins(mNavButtonView);
             height = Math.max(height, mNavButtonView.getMeasuredHeight() +
                     getVerticalMargins(mNavButtonView));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mNavButtonView));
         }
 
@@ -1310,7 +1311,7 @@ public class RtlToolbar extends ViewGroup {
                     getHorizontalMargins(mCollapseButtonView);
             height = Math.max(height, mCollapseButtonView.getMeasuredHeight() +
                     getVerticalMargins(mCollapseButtonView));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mCollapseButtonView));
         }
 
@@ -1325,7 +1326,7 @@ public class RtlToolbar extends ViewGroup {
             menuWidth = mMenuView.getMeasuredWidth() + getHorizontalMargins(mMenuView);
             height = Math.max(height, mMenuView.getMeasuredHeight() +
                     getVerticalMargins(mMenuView));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mMenuView));
         }
 
@@ -1338,7 +1339,7 @@ public class RtlToolbar extends ViewGroup {
                     heightMeasureSpec, 0, collapsingMargins);
             height = Math.max(height, mExpandedActionView.getMeasuredHeight() +
                     getVerticalMargins(mExpandedActionView));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mExpandedActionView));
         }
 
@@ -1347,7 +1348,7 @@ public class RtlToolbar extends ViewGroup {
                     heightMeasureSpec, 0, collapsingMargins);
             height = Math.max(height, mLogoView.getMeasuredHeight() +
                     getVerticalMargins(mLogoView));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mLogoView));
         }
 
@@ -1363,7 +1364,7 @@ public class RtlToolbar extends ViewGroup {
             width += measureChildCollapseMargins(child, widthMeasureSpec, width,
                     heightMeasureSpec, 0, collapsingMargins);
             height = Math.max(height, child.getMeasuredHeight() + getVerticalMargins(child));
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(child));
         }
 
@@ -1377,7 +1378,7 @@ public class RtlToolbar extends ViewGroup {
                     collapsingMargins);
             titleWidth = mTitleTextView.getMeasuredWidth() + getHorizontalMargins(mTitleTextView);
             titleHeight = mTitleTextView.getMeasuredHeight() + getVerticalMargins(mTitleTextView);
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mTitleTextView));
         }
         if (shouldLayout(mSubtitleTextView)) {
@@ -1387,7 +1388,7 @@ public class RtlToolbar extends ViewGroup {
                     collapsingMargins));
             titleHeight += mSubtitleTextView.getMeasuredHeight() +
                     getVerticalMargins(mSubtitleTextView);
-            childState = ViewUtils.combineMeasuredStates(childState,
+            childState = View.combineMeasuredStates(childState,
                     ViewCompat.getMeasuredState(mSubtitleTextView));
         }
 

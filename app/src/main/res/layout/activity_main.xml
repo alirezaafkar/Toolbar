@@ -21,7 +21,7 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:direction="locale"
-            app:font="@string/font_path"
+            app:font_path="@string/font_path"
             app:navigationIcon="@drawable/ic_menu"
             app:optionsMenu="@menu/menu_main"
             app:popupTheme="@style/AppTheme.PopupOverlay"

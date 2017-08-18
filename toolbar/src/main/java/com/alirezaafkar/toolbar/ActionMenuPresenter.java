@@ -9,7 +9,6 @@ import android.os.Parcelable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ActionProvider;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.transition.ActionBarTransition;
 import android.support.v7.view.ActionBarPolicy;
 import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.view.menu.BaseMenuPresenter;
@@ -208,10 +207,6 @@ class ActionMenuPresenter extends BaseMenuPresenter
 
     @Override
     public void updateMenuView(boolean cleared) {
-        final ViewGroup menuViewParent = (ViewGroup) ((View) mMenuView).getParent();
-        if (menuViewParent != null) {
-            ActionBarTransition.beginDelayedTransition(menuViewParent);
-        }
         super.updateMenuView(cleared);
 
         ((View) mMenuView).requestLayout();
