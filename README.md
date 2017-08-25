@@ -6,19 +6,19 @@ Android toolbar with layout direction support
 <img src="/Preview.JPG"/>
 
 
-##Getting started
+## Getting started
 
 ### Dependency
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:toolbar:1.1.1'
+    compile 'com.alirezaafkar:toolbar:1.1.2'
 }
 ```
 
 ### Usage
 
-###XML
+### XML
 
 ```xml
 <com.alirezaafkar.toolbar.RtlToolbar
@@ -34,7 +34,7 @@ dependencies {
                 app:title="@string/app_name"/>
 ```
 
-###JAVA
+### JAVA
 ```java
 RtlToolbar toolbar = (RtlToolbar) findViewById(R.id.toolbar);
 DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -46,7 +46,7 @@ drawerToggle.syncState();
 
 ```
 
-#Licence
+# Licence
 
     Copyright 2015 Alireza Afkar
     
